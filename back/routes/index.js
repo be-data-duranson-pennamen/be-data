@@ -2,6 +2,11 @@ const { Router } = require("express");
 
 module.exports = new Router()
 
-    .use((err, req, res, next) => {
-        res.status(500).json(err.message);
-    });
+  .use("/employee", require("./employee"))
+  .use("/flight", require("./flight"))
+  .use("/passenger", require("./passenger"))
+  .use("/plane", require("./plane"))
+  .use("/ticket", require("./ticket"))
+  .use((err, req, res, next) => {
+    res.status(500).json(err.message);
+  });

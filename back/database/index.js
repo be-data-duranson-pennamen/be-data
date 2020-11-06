@@ -1,9 +1,13 @@
-const mysql = require("mysql");
+require("dotenv").config();
+const sequelize = require("sequelize");
 
-const airportDatabase = mysql.createPool({
-  host: process.env.DATABASE_IP,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-})
-module.exports.airportDatabase = airportDatabase
+module.exports.db = new sequelize(process.env.DATABASE_URL, {
+    dialectOptions: { ssl: true },
+    logging: false
+});
+
+module.exports.Passenger = require("./passenger");
+module.exports.Flight = require("./flight");
+module.exports.Employee = require("./employee");
+module.exports.Plane = require("./plane");
+module.exports.Ticket = require("./ticket");
