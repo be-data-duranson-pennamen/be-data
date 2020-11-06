@@ -8,7 +8,6 @@ module.exports.findOne = async ({ body }) => {
 };
 module.exports.readAll = async () => {
   const passenger = await Passenger.findAll();
-  console.log('OUI')
   return passenger;
 };
 module.exports.createOne = async ({ body }) => {
