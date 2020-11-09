@@ -20,3 +20,9 @@ module.exports.createOne = async ({ body }) => {
 module.exports.deleteOne = async ({ body }) => {
   await Plane.destroy({ where: { numPlane: body.numPlane } });
 };
+
+module.exports.getNewPlaneNum = async () => {
+  return 1 + await Plane.findAll({
+    attributes: [[sequelize.fn('MAX', sequelize.col('numPlane')), 'max_num']]
+  })
+}
