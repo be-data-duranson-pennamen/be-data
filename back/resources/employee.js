@@ -24,3 +24,9 @@ module.exports.createOne = async ({ body }) => {
 module.exports.deleteOne = async ({ body }) => {
   await Employee.destroy({ where: { secuNum: body.secuNum } });
 };
+
+module.exports.getAllSecuNum = async () => {
+  await Employee.findAll({
+    attributes: ['secuNum']
+  })
+}

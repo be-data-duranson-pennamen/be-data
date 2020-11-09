@@ -21,3 +21,9 @@ module.exports.createOne = async ({ body }) => {
 module.exports.deleteOne = async ({ body }) => {
   await Passenger.destroy({ where: { numero: body.numero } });
 };
+
+module.exports.getAllSecuNum = async () => {
+  await Passenger.findAll({
+    attributes: ['numero']
+  })
+}
