@@ -1,0 +1,9 @@
+{
+    "airports" : ["CBE", "ZPR", "EYD", "RDX", "ERT"],
+    "cities" : ["Monaco", "Nice","Rouen","Paris"],
+    "firstNames" : ["Thomas","Fabien","Romuald"],
+    "lastNames" : ["Dupont", "Lafondue", "Lepetit", "Dubois"],
+    "jobs" : ["Auto-entrepreneur","Architecte","Plombier","Agent du travail"],
+    "planeTypes": ["Boeing 747","Rafale","Concorde","Coucou Racing 2000 1.5 helices"],
+    "streets" : ["Rue de la Gare", "Avenue des Pres", "Boulevard Monbéliard"]
+}

@@ -26,7 +26,6 @@ module.exports.deleteOne = async ({ body }) => {
 };
 
 module.exports.getAllSecuNum = async () => {
-  await Employee.findAll({
-    attributes: ['secuNum']
-  })
+  const output = await Employee.findAll()
+  return output.map(x => x.secuNum)
 }
