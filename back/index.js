@@ -2,9 +2,10 @@ require("dotenv").config();
 
 const http = require("http");
 const express = require("express");
+const cors = require("cors");
 
 const api = express();
-api.use(express.json()).use("/api", require("./routes"));
+api.use(cors()).use(express.json()).use("/api", require("./routes"));
 // .use(express.static("./dist"))
 // .use("*", (req, res) => res.sendFile("index.html", { root: "./dist" }));
 
