@@ -1,4 +1,5 @@
 const { Plane } = require.main.require("./database");
+const sequelize =  require("sequelize");
 
 module.exports.findOne = async ({ body }) => {
   const plane = await Plane.findOne({
@@ -17,12 +18,18 @@ module.exports.createOne = async ({ body }) => {
     capacity: body.capacity,
   });
 };
+module.exports.createMany = async (list) => {
+  if(list.length>0) {
+    await Plane.bulkCreate(list);
+  }
+};
 module.exports.deleteOne = async ({ body }) => {
   await Plane.destroy({ where: { numPlane: body.numPlane } });
 };
 
 module.exports.getNewPlaneNum = async () => {
-  return 1 + await Plane.findAll({
+  const res = await Plane.findAll({
     attributes: [[sequelize.fn('MAX', sequelize.col('numPlane')), 'max_num']]
   })
+  return 1 + Number(res[0].dataValues.max_num)
 }

@@ -21,6 +21,11 @@ module.exports.createOne = async ({ body }) => {
     salary: body.salary,
   });
 };
+module.exports.createMany = async (list) => {
+  if(list.length>0) {
+    await Employee.bulkCreate(list);
+  }
+};
 module.exports.deleteOne = async ({ body }) => {
   await Employee.destroy({ where: { secuNum: body.secuNum } });
 };

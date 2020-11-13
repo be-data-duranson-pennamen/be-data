@@ -1,18 +1,12 @@
 const { Router } = require("express");
 
-const generation = require.main.require("./generation");
+const {generation} = require.main.require("./resources");
 
 module.exports = new Router()
 
     .get("/", (req, res, next) => {
         generation
-            .generateAll()
-            .then(found => res.json(found))
-            .catch(next);
-    })
-    .get("/employees", (req, res, next) => {
-        generation
-            .generateEmployees()
-            .then(found => res.json(found))
+            .generateRandom(req)
+            .then(() => res.send('Généré avec succès'))
             .catch(next);
     })

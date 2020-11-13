@@ -9,5 +9,5 @@ module.exports = new Router()
   .use("/ticket", require("./ticket"))
   .use("/generate", require("./generation"))
   .use((err, req, res, next) => {
-    res.status(500).json(err.message);
+    res.status(500).json(err);
   });

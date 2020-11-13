@@ -18,12 +18,16 @@ module.exports.createOne = async ({ body }) => {
     address: body.address,
   });
 };
+module.exports.createMany = async (list) => {
+  if(list.length>0) {
+    await Passenger.bulkCreate(list);
+  }
+};
 module.exports.deleteOne = async ({ body }) => {
   await Passenger.destroy({ where: { numero: body.numero } });
 };
 
 module.exports.getAllSecuNum = async () => {
-  await Passenger.findAll({
-    attributes: ['numero']
-  })
+  const output = await Passenger.findAll()
+  return output.map(x => x.secuNum)
 }
