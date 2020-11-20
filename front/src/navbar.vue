@@ -1,21 +1,32 @@
 <template>
   <div class="navbar">
-    <a class="link">
-      <router-link to="/">Accueil</router-link>
+    <a v-if="$route.path=='/statistics'" class="link">
+      <router-link to="/">Liste des vols</router-link>
     </a>
-    <a class="link">
-      <router-link to="/flights">Liste des vols</router-link>
+    <a v-if="!$store.state.admin" class="link"  @click="login">Admin</a>
+
+    <a v-if="$store.state.admin && $route.path=='/'" class="link">
+      <router-link to="/statistics">Statistiques</router-link>
     </a>
+    <a v-if="$store.state.admin" class="link"  @click="$store.commit('logout')">Déconnexion</a>
   </div>
 </template>
 
 <script>
 export default {
-  data() { 
-    return {
-      toggleClicked : false
+  methods : {
+    login() {
+      const password = prompt('Mot de passe');
+      if (password=='admin') {
+        this.$store.commit('login')
+      }
+      else {
+        alert('Mot de passe incorrect')
+      }
     }
   }
+
+
 };
 </script>
 
