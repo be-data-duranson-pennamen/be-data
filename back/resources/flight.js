@@ -1,7 +1,7 @@
 const { Flight } = require.main.require("./database");
 const fs = require('fs')
 
-module.exports.findOne = async ({ body }) => {
+const findOne = async ({ body }) => {
   const flight = await Flight.findOne({
     where: { num: body.num },
   });
@@ -30,7 +30,22 @@ module.exports.deleteOne = async ({ body }) => {
   await Flight.destroy({ where: { num: body.num } });
 };
 
-module.exports.getAllAvailableAirports = () => {
+module.exports.reduceEmptyPlaces = async ({body}) => {
+  await findOne({num : body.numFlight})
+  .on('success', function (flgt) {
+    // Check if record exists in db
+    if (flgt) {
+      flgt.update({
+        emptyPlaces: flgt.emptyPlaces - body.placesBought
+      })
+      .success(function () {})
+    }
+  })
+};
+
+const getAllAvailableAirports = () => {
   const samples = JSON.parse(fs.readFileSync("./generation/samples.json"))
   return samples.airports
 }
+
+module.exports = {findOne,getAllAvailableAirports}
