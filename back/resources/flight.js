@@ -1,4 +1,5 @@
 const { Flight } = require.main.require("./database");
+const fs = require('fs')
 
 module.exports.findOne = async ({ body }) => {
   const flight = await Flight.findOne({
@@ -28,3 +29,8 @@ module.exports.createOne = async ({ body }) => {
 module.exports.deleteOne = async ({ body }) => {
   await Flight.destroy({ where: { num: body.num } });
 };
+
+module.exports.getAllAvailableAirports = () => {
+  const samples = JSON.parse(fs.readFileSync("./generation/samples.json"))
+  return samples.airports
+}
