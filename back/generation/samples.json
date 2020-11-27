@@ -1,9 +1,11 @@
 {
     "airports" : ["LHR", "CDG", "AMS", "FRA", "IST" ,"ISL", "MAD", "BCN", "MUC", "LGW"],
-    "cities" : ["Monaco", "Nice","Rouen","Paris"],
-    "firstNames" : ["Thomas","Fabien","Romuald"],
-    "lastNames" : ["Dupont", "Lafondue", "Lepetit", "Dubois"],
-    "jobs" : ["Auto-entrepreneur","Architecte","Plombier","Agent du travail"],
+    "cities" : ["Monaco", "Nice","Rouen","Paris","Lyon","Marseille","Aix-en-Provence","Strasbourg","Brest","Coursegoule",
+        "Lille","Toulouse", "Ecully"],
+    "firstNames" : ["Thomas","Fabien","Romuald","Charles","Guillaume","Prune","Alexia","Sarah","Josette","Raimon",
+        "Franck","Sophia","Cunégonde","Phillipe"],
+    "lastNames" : ["Dupont", "Lafondue", "Lepetit", "Dubois","Ampere","Deschamps","Larbuste","De Fondevielle"],
+    "jobs" : ["Auto-entrepreneur","Architecte","Plombier","Agent du travail","Homme politique","Maçon","Musicien"],
     "planeTypes": ["Boeing 747","Rafale","Concorde","Coucou Racing 2000 1.5 helices"],
-    "streets" : ["Rue de la Gare", "Avenue des Pres", "Boulevard Monbéliard"]
+    "streets" : ["Rue de la Gare", "Avenue des Pres", "Boulevard Monbéliard", "Rue du Parc", "Avenue des Micocouliers"]
 }
