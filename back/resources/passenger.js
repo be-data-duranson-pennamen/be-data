@@ -1,6 +1,6 @@
 const { Passenger } = require.main.require("./database");
 
-module.exports.findOne = async ({ body }) => {
+module.exports.findOne = async ( body ) => {
   const passenger = await Passenger.findOne({
     where: { numero: body.numero },
   });

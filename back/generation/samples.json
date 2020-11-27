@@ -1,5 +1,5 @@
 {
-    "airports" : ["CBE", "ZPR", "EYD", "RDX", "ERT"],
+    "airports" : ["LHR", "CDG", "AMS", "FRA", "IST" ,"ISL", "MAD", "BCN", "MUC", "LGW"],
     "cities" : ["Monaco", "Nice","Rouen","Paris"],
     "firstNames" : ["Thomas","Fabien","Romuald"],
     "lastNames" : ["Dupont", "Lafondue", "Lepetit", "Dubois"],
