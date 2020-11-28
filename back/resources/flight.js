@@ -1,7 +1,9 @@
 const { Flight } = require.main.require("./database");
 const fs = require('fs')
 
-const findOne = async ( body ) => {
+module.exports = {findOne}
+
+async function findOne( body ) {
   const flight = await Flight.findOne({
     where: { num: body.num },
   });
@@ -30,7 +32,7 @@ module.exports.deleteOne = async ({ body }) => {
   await Flight.destroy({ where: { num: body.num } });
 };
 
-const reduceEmptyPlaces = async (body) => {
+module.exports.reduceEmptyPlaces = async (body) => {
   await findOne({num : body.numFlight}).then((flgt) => {
     // Check if record exists in db
     if (flgt) {
@@ -41,10 +43,7 @@ const reduceEmptyPlaces = async (body) => {
   })
 };
 
-const getAllAvailableAirports = () => {
+module.exports.getAllAvailableAirports = () => {
   const samples = JSON.parse(fs.readFileSync("./generation/samples.json"))
   return samples.airports
 }
-
-// ATTENTION : cette syntaxe remplace les module.exports du dessus, s'il faut exporter une fonction, la définir comme en dessous
-module.exports = {findOne,getAllAvailableAirports,reduceEmptyPlaces}
