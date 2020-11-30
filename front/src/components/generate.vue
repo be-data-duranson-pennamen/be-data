@@ -55,7 +55,7 @@ export default {
       await axios.get(
         `${process.env.VUE_APP_API_URL}/generate/passenger?num=${this.passengerNumber}`
       );
-      alert(`${this.planeNumber} clients ont été créés`);
+      alert(`${this.passengerNumber} clients ont été créés`);
     },
     // async generateTickets() {
     //     await axios.post(`${process.env.VUE_APP_API_URL}/generate/ticket?num=${this.ticketNumber}`)
