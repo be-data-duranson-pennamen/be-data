@@ -1,4 +1,4 @@
-const { Ticket } = require.main.require("./database");
+const { Ticket } = require.main.require("./model");
 const flight = require("./flight")
 const passenger = require("./passenger")
 const sequelize =  require("sequelize");
@@ -18,8 +18,8 @@ module.exports.createOne = async ({ body }) => {
   const emptyPlaces = await flight.findOne({num: body.numFlight}).then((flight) => flight.dataValues.emptyPlaces)
   const passengerExists = await passenger.findOne({numero: body.numPassenger}).then((passenger) => passenger != undefined)
   const ticketNum = await getNewTicketNum()
-  console.log(`t1: ${Date.now() - start}`);
-  console.log(emptyPlaces)
+  // console.log(`t1: ${Date.now() - start}`);
+  // console.log(emptyPlaces)
   if (passengerExists && emptyPlaces > 0){
     try{
       await Ticket.create({
@@ -29,7 +29,7 @@ module.exports.createOne = async ({ body }) => {
         numFlight: body.numFlight,
         numPassenger: body.numPassenger,
       });
-      console.log(`t2: ${Date.now() - start}`);
+      // console.log(`t2: ${Date.now() - start}`);
       await flight.reduceEmptyPlaces({
         numFlight : body.numFlight,
         placesBought : 1

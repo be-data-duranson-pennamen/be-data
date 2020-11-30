@@ -1,13 +1,15 @@
 <template>
   <section class="main-content">
-    <flight-creator />
+    <div class='flight' v-for='flight in flights' :key='flight.id'>
+      {{flight}}
+    </div>
   </section>
 </template>
 <script>
 import axios from "axios";
-import FlightCreator from "@/components/flight-creator";
+
 export default {
-  components : {FlightCreator},
+
   data() {
     return {
       flights: [],

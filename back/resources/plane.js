@@ -1,9 +1,9 @@
-const { Plane } = require.main.require("./database");
-const sequelize =  require("sequelize");
+const { Plane } = require.main.require("./model");
+const { getRandomPlaneTypes } = require("../utils");
 
 module.exports.findOne = async ({ body }) => {
   const plane = await Plane.findOne({
-    where: { numPlane: body.numPlane },
+    where: { id: body.id },
   });
   return plane;
 };
@@ -13,7 +13,6 @@ module.exports.readAll = async () => {
 };
 module.exports.createOne = async ({ body }) => {
   await Plane.create({
-    numPlane: body.numPlane,
     type: body.type,
     capacity: body.capacity,
   });
@@ -24,12 +23,10 @@ module.exports.createMany = async (list) => {
   }
 };
 module.exports.deleteOne = async ({ body }) => {
-  await Plane.destroy({ where: { numPlane: body.numPlane } });
+  await Plane.destroy({ where: { id: body.id } });
 };
+module.exports.generateRandom = async (num = 10) => {
 
-module.exports.getNewPlaneNum = async () => {
-  const res = await Plane.findAll({
-    attributes: [[sequelize.fn('MAX', sequelize.col('numPlane')), 'max_num']]
-  })
-  return 1 + Number(res[0].dataValues.max_num)
+  await Plane.bulkCreate(getRandomPlaneTypes(num))
+
 }

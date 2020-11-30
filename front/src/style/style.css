@@ -53,26 +53,27 @@
   flex-direction: column;
   text-align: center;
   font-size: large;
+  animation: fade ease-in-out 0.5s;
 }
-.introduction-message {
-  opacity: 0;
-  font-size: 20px;
-  animation: open ease-in-out forwards 1s;
-  animation-delay: 0.5s;
-}
+
 a:hover {
   cursor: pointer;
 }
-@keyframes open {
-
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
   100% {
     opacity: 1;
 
   }
 }
+strong {
+  margin: 10px;
+}
 /* Style The Dropdown Button */
 .dropbtn {
-  background-color: #4a66b3;
+  background-color: transparent;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -91,7 +92,7 @@ a:hover {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -100,8 +101,9 @@ a:hover {
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
+  margin : 0px;
   text-decoration: none;
-  display: block;
+  text-align: left;
 }
 
 /* Change color of dropdown links on hover */
@@ -109,10 +111,35 @@ a:hover {
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  max-height: 20vh;
+  width : 300px;
+  overflow-y: auto;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
   background-color: #415a9e;
+}
+
+.design-button {
+  border : none;
+  cursor : pointer;
+  font-size: 20px;
+  padding: 10px 20px;
+  margin : 10px;
+}
+.green-button {
+  color : white;
+  background-color: #6d9c3e;
+}
+.green-button:hover {
+  background-color: #466626;
+}
+.blue-button:hover {
+  background-color: #2b4280;
+}
+.item {
+  margin : 5px;
 }

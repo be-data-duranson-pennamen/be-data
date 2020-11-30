@@ -1,11 +1,9 @@
-const { Flight } = require.main.require("./database");
-const fs = require('fs')
+const { Flight } = require.main.require("./model");
+const fs = require("fs");
 
-module.exports = {findOne}
-
-async function findOne( body ) {
+module.exports.findOne = async ({ body }) => {
   const flight = await Flight.findOne({
-    where: { num: body.num },
+    where: { id: body.id },
   });
   return flight;
 };
@@ -15,7 +13,6 @@ module.exports.readAll = async () => {
 };
 module.exports.createOne = async ({ body }) => {
   await Flight.create({
-    num: body.num,
     departureAirport: body.departureAirport,
     arrivalAirport: body.arrivalAirport,
     departureDate: body.departureDate,
@@ -25,25 +22,19 @@ module.exports.createOne = async ({ body }) => {
     stewart1: body.stewart1,
     stewart2: body.stewart2,
     emptyPlaces: body.emptyPlaces,
-    numPlane : body.numPlane
+    planeId: body.planeId,
   });
 };
 module.exports.deleteOne = async ({ body }) => {
-  await Flight.destroy({ where: { num: body.num } });
+  await Flight.destroy({ where: { id: body.id } });
 };
-
-module.exports.reduceEmptyPlaces = async (body) => {
-  await findOne({num : body.numFlight}).then((flgt) => {
-    // Check if record exists in db
-    if (flgt) {
-      flgt.update({
-        emptyPlaces: flgt.emptyPlaces - body.placesBought
-      })
-    }
-  })
+module.exports.createMany = async ({body}) => {
+  if(body.flightList.length>0) {
+    await Flight.bulkCreate(body.flightList);
+  }
 };
 
 module.exports.getAllAvailableAirports = () => {
-  const samples = JSON.parse(fs.readFileSync("./generation/samples.json"))
-  return samples.airports
-}
+  const { samples } = require.main.require("./samples");
+  return samples.airports;
+};
