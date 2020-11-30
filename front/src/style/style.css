@@ -143,3 +143,15 @@ strong {
 .item {
   margin : 5px;
 }
+.flight-content {
+  overflow-y: auto;
+}
+.flight {
+  padding: 5px;
+  margin : 20px;
+  min-width : 80vw;
+  background-color: #f1f1f1;
+  color: black;
+  cursor: pointer;
+  
+}

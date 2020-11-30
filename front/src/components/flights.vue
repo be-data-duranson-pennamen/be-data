@@ -1,7 +1,13 @@
 <template>
-  <section class="main-content">
-    <div class='flight' v-for='flight in flights' :key='flight.id'>
-      {{flight}}
+  <section class="main-content flight-content">
+    <div class="flight" v-for="flight in flights" :key="flight.id">
+      <strong class="item">
+        Vol {{ flight.departureAirport }} -> {{ flight.arrivalAirport }}
+      </strong>
+      <div class="item">
+        Départ : {{new Date(flight.departureDate)}} Arrivée : {{new Date(flight.arrivalDate)}}
+      </div>
+      <div style='color:green'>{{flight.price/100}}€</div>
     </div>
   </section>
 </template>
@@ -9,7 +15,6 @@
 import axios from "axios";
 
 export default {
-
   data() {
     return {
       flights: [],
