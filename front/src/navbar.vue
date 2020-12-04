@@ -5,11 +5,11 @@
     </a> -->
     <a v-if="!$store.state.admin" class="link" @click="login">Admin</a>
 
-    <!-- <a v-if="$store.state.admin && $route.path == '/'" class="link">
+    <a v-if="$store.state.admin && $route.path == '/admin'" class="link">
       <router-link to="/statistics">Statistiques</router-link>
-    </a> -->
+    </a>
 
-    <a v-if="$store.state.admin" class="link"
+    <a v-if="$store.state.admin && $route.path != '/admin'" class="link"
       ><router-link to="/admin">Menu</router-link></a
     >
     <a
