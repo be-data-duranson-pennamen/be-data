@@ -244,6 +244,7 @@ strong {
   flex-wrap: wrap;
   flex-direction: column;
   background-color: white;
+  animation: fade ease-in-out 0.5s;
 }
 .panel-row {
   flex-direction: row;

@@ -10,7 +10,6 @@ const generateRandomSecuNum = () => {
 
 const getRandomIndexes = (listLength, num = 1) => {
   if (listLength < num) {
-    // [0, 1, .. , listLength]
     return Array.from(Array(listLength).keys());
   }
   var indexes = new Array();
