@@ -120,7 +120,7 @@ strong {
   max-height: 20vh;
   width: 300px;
   overflow-y: auto;
-  z-index : 4;
+  z-index: 4;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
@@ -172,7 +172,6 @@ strong {
   border-radius: 3px;
   border: solid 1px #979797;
   background-color: #f1f1f1;
-
 }
 .details-button {
   margin: 5px;
@@ -234,24 +233,34 @@ strong {
   font-size: 25px;
 }
 .chart-content {
-  position : absolute;
+  position: absolute;
+  width: 90vw;
+  height: 90vh;
+  overflow: auto;
   top: 50%;
-  left:50%;
-  transform : translate(-50%,-50%);
-  margin : 0;
-  padding : 0 ;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 20px;
+}
+.panel-row {
+  flex-direction: row;
 }
 .panel {
-  max-width : 40vw;
-  max-height : 40vh;
-  } 
+  max-width: 45vw;
+  max-height: 45vw;
+  justify-content: center;
+}
 .search-bar {
   position: absolute;
-  top : 20px;
-  left : 50vw;
-  transform: translate(-50%,0);
+  top: 20px;
+  left: 50vw;
+  transform: translate(-50%, 0);
   justify-content: center;
 }
 .passengers-view {

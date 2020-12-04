@@ -1,22 +1,11 @@
 ## TO DO
 
-### front
-- page de listing des vols possibles (avec bouton réserver)
-- page de description d'un vol en particulier
-- page de stat : prochains vols, encombrement des aéroports, chiffre d'affaire, occupation des avions, répartition vol / passager dans la semaine, avions disponibles
-
-### synthèse 
-- Expliquer les choix techniques
-- Expliquer nos schémas de bdd
-- Décrire le fonctionnement de notre appli
-- Décrire l'installation en locale si besoin
-
 # Introduction
 
 Dans le cadre du MOD Système de Base de Données, nous avons créé une base de données permettant de gérer un traffic aérien avec des fonctionnalités client (réserver un vol) et administrateur (créer un vol, voir des statistiques et voir les détails d'un vol).
 Pour ce faire, nous avons créé une application web de type client-serveur dont nous détaillerons les choix technologiques plus tard.
 
-# Installation
+# Installation en local
 
 1. Clonez ce repertoire git sur votre ordinateur. Si cela ne marche pas, demandez l'accès à Thomas Pennamen ou Fabien Duranson.
  ```git clone https://github.com/be-data-duranson-pennamen/be-data```
@@ -53,7 +42,7 @@ Vous arrivez sur la page ```generate```. (p.s. : Vous pouvez tester en vous déc
 
 ### Création de vols
 
-Nous avons nos données "de base", mais il nous manque encore un element essentiel : les vols. Nous avons décidé de les créer à la main, avec une logique de vols réguliers. Cliquez donc sur **Créer un vol**. Vous arrivez sur la page `flight-creator`. cette page va vous permettre de de créer des vols. Sélectionnez les aéroports de départ et d'arrivée, la date de départ (la date d'arrivée est automatiquement calculée par le système en fonction de vraies données de vol), sélectionnez un avion parmis la liste des avions disponibles, sélectionner des pilotes et des stewarts parmis la liste des employés (notez qu'une logique a été implémentée pour ne pas qu'un employé puisse avoir plusieurs rôles dasn le même avion) et renseignez le prix du billet **en centimes**. Vous avez ensuite une option qui va vous permettre de choisir si ce vol est un vol unique, quotidien (tous les jours à cette heure) ou hebdomadaire (toutes les semaines, ce jour à cette heure). Pour les deux derniers cas de figure les vols sont générés pour 1 mois (pas à l'infini). 
+Nous avons nos données "de base", mais il nous manque encore un element essentiel : les vols. Nous avons décidé de les créer à la main, avec une logique de vols réguliers. Cliquez donc sur **Créer un vol**. Vous arrivez sur la page `flight-creator`. cette page va vous permettre de de créer des vols. Sélectionnez les aéroports de départ et d'arrivée, la date de départ (la date d'arrivée est automatiquement calculée par le système en fonction de vraies données de vol), sélectionnez un avion parmis la liste des avions disponibles, sélectionner des pilotes et des stewarts parmis la liste des employés (notez qu'une logique a été implémentée pour ne pas qu'un employé puisse avoir plusieurs rôles dasn le même avion, aussi, les employés ont un métier précis, les pilotes ne peuvent pas être stewarts et inversement) et renseignez le prix du billet **en centimes**. Vous avez ensuite une option qui va vous permettre de choisir si ce vol est un vol unique, quotidien (tous les jours à cette heure) ou hebdomadaire (toutes les semaines, ce jour à cette heure). Pour les deux derniers cas de figure les vols sont générés pour 1 mois (pas à l'infini). 
 
 Nous avons maintenant des vols ! On pourrait retourner sur la page d'accueil de tout à l'heure pour voir les vols mais nous allons d'abord générer un bon nombre de billets pour avoir d'autres passagers que vous dans l'avion.
 
@@ -73,11 +62,13 @@ Toutes les données artificielles ont été générées ! Nous pouvons maintenan
 
 Essayez maintenant de rechercher un vol en sélectionnant dans les départs et destinations disponibles. Notez que vous n'avez ici que les options conduisant à un résultat. Des infos très lisibles sont affichées pour chaque vols, avec le prix en euros, 
 
-Cliquez sur le billet que vous voulez réserver.
+Notez le nombre de place disponible dans le vol que vous avez selectionné cliquez sur le bouton **Réserver ce vol**.
 
 ### La page de réservation
 
-À faire
+Renseignez ici les 3 champs : **Prénom**, **Nom** et **Adresse**. Réessayez une deuxième fois avec les mêmes informations : la réservation vous est refusée car vous avez déjà pris le billet. Réessayez mainteant une troisième fois en changeant vos informations : un deuxième billet a été créé. 
+
+Retourner maintenant sur la page principale
 
 ## Gestion administrateur
 
@@ -87,7 +78,7 @@ Nous avons implémenté 2 fonction principales administrateurs : les détails de
 
 Pour accéder aux détails du vol, cliquez sur **Voir les vols**. Ceci va vous ramener à la page de garde mais avec des droits d'administrateurs. Vous pourrez ici supprimer un vol (corbeille rouge) ou voir les détails du vol (point d'information bleu). 
 
-Commencez par cliquer sur le bouton information. Vous obtenez la liste des passagers, les membres d'équipage et des données liées à l'avion.
+Commencez par cliquer sur le bouton information. Vous obtenez la liste des passagers, les membres d'équipage et le prix du vol.
 
 Retournez ensuite sur la page des vols et supprimez un vol. Il disparait, et tous les billets lui étant liés sont aussi automatiquement supprimés.
 
