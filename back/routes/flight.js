@@ -10,11 +10,7 @@ module.exports = new Router()
             .then(found => res.json(found))
             .catch(next);
     })
-<<<<<<< HEAD
-    .post("/find", (req, res, next) => {
-=======
     .post("/", (req, res, next) => {
->>>>>>> d7044b8dce87b9688f2e821afb3174cfdccbcbd9
         flight
             .findOne(req)
             .then(found => res.json(found))
