@@ -1,6 +1,6 @@
 <script>
 import { Bar } from 'vue-chartjs'
-//import axios from "axios";
+import axios from "axios";
 
 var data = {}
 
@@ -24,56 +24,8 @@ const options = {
 export default {
     extends: Bar,
     async mounted () {
-        //var tickets = await axios.get(`${process.env.VUE_APP_API_URL}/ticket`);
-
-        const tickets = {
-            data:[
-                {
-                    flightId : 1
-                },
-                {
-                    flightId : 1
-                },
-                {
-                    flightId : 1
-                },
-                {
-                    flightId : 2
-                },
-                {
-                    flightId : 2
-                },
-                {
-                    flightId : 3
-                }
-            ]
-        }
-        const flights = [
-                {
-                    data : {
-                        id : 1,
-                        price : 100,
-                        departureAirport : "CDG",
-                        arrivalAirport : "FRA"
-                    }
-                },
-                {
-                    data : {
-                        id : 2,
-                        price : 27.5,
-                        departureAirport : "AKK",
-                        arrivalAirport : "OIO"
-                    }
-                },
-                {
-                    data : {
-                        id : 3,
-                        price : 37.5,
-                        departureAirport : "FRA",
-                        arrivalAirport : "CDG"
-                    }
-                }
-            ]
+        const tickets = await axios.get(`${process.env.VUE_APP_API_URL}/ticket`);
+        
         var counts = tickets.data.reduce((p, c) => {
             var ticketNum = c.flightId;
             if (ticketNum == null) {
@@ -86,11 +38,21 @@ export default {
             return p;
         }, {});
 
+        const flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight/`);
+
+        const flightsReduced = {}
+        for(var element of flights.data){
+            flightsReduced[element.id] = 
+            {
+                type : element.type,
+                capacity : element.capacity
+            }
+        }
+
         var lines = {} // object utilisé comme dictionnaire avec comme clefs les lignes et en valeurs les chiffres d'Affaire
 
         for(const flightId in counts){
-            //var flight = await axios.post(`${process.env.VUE_APP_API_URL}/flight/`,{id:flightId});
-            const flight = flights[flightId - 1] // Cas particulier (je me suis arrange pour)
+            var flight = flights[flightId]
             const line = [flight.data.departureAirport, flight.data.arrivalAirport].sort().join("-")  // On parle de ligne pour s'affranchir du problème aller-retour
             if (!(line in lines)) {
                 lines[line] = 0;

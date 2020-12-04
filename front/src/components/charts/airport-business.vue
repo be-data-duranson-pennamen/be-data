@@ -1,6 +1,6 @@
 <script>
 import { Pie } from 'vue-chartjs'
-//import axios from "axios";
+import axios from "axios";
 
 var data = {}
 
@@ -31,31 +31,7 @@ const availableBorderColors = [
 export default {
     extends: Pie,
     async mounted () {
-        //var flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight`);
-        const flights = {
-            data:[
-                {
-                    departureAirport : "CDG",
-                    arrivalAirport : "FRA",
-                    departureDate : "2020/12/7 08:00"
-                },{
-                    departureAirport : "AKK",
-                    arrivalAirport : "OIO",
-                    departureDate : "2020/12/7 10:00"
-                    
-                },
-                {
-                    departureAirport : "FRA",
-                    arrivalAirport : "CDG",
-                    departureDate : "2020/12/7 09:00"
-                },
-                {
-                    departureAirport : "FRA",
-                    arrivalAirport : "CDG",
-                    departureDate : "2021/12/7 08:00"
-                }
-            ]
-        }
+        const flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight`);
         var counts = flights.data.reduce((p, c) => {
             var departure = c.departureAirport;
             var arrival = c.arrivalAirport;

@@ -10,5 +10,6 @@ module.exports = new Router()
   .use("/generate", require("./generation"))
   .use("/delete", require("./delete"))
   .use((err, req, res, next) => {
+    console.log(err)
     res.status(500).json(err);
   });
