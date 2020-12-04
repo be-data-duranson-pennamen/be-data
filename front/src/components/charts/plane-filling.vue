@@ -1,6 +1,6 @@
 <script>
 import { Radar } from 'vue-chartjs'
-//import axios from "axios";
+import axios from "axios";
 
 var data = {}
 
@@ -15,31 +15,7 @@ export default {
     extends: Radar,
     async mounted () {
 
-        //var planes = await axios.get(`${process.env.VUE_APP_API_URL}/plane`);
-        const planes = {
-            data:[
-                {
-                    id : 1,
-                    type : "Boeing",
-                    capacity : 100
-                },
-                {
-                    id : 2,
-                    type : "Boeing",
-                    capacity : 100
-                },
-                {
-                    id : 3,
-                    type : "Boeing n2",
-                    capacity : 200
-                },
-                {
-                    id : 4,
-                    type : "Boeing 747",
-                    capacity : 500
-                }
-            ]
-        }
+        const planes = await axios.get(`${process.env.VUE_APP_API_URL}/plane`);
 
         const planeReduced = {}
         for(var element of planes.data){
@@ -50,41 +26,7 @@ export default {
             }
         }
 
-        //var flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight`);
-        const flights = {
-            data:[
-                {
-                    planeId: 1,
-                    emptyPlaces: 50,
-                    departureDate : "2020/12/7 08:00"
-                },
-                {
-                    planeId: 2,
-                    emptyPlaces: 30,
-                    departureDate : "2020/12/7 08:00"
-                },
-                {
-                    planeId: 3,
-                    emptyPlaces: 80,
-                    departureDate : "2020/12/7 08:00"
-                },
-                {
-                    planeId: 3,
-                    emptyPlaces: 20,
-                    departureDate : "2020/12/7 08:00"
-                },
-                {
-                    planeId: 4,
-                    emptyPlaces: 30,
-                    departureDate : "2020/12/7 08:00"
-                },
-                {
-                    planeId: 4,
-                    emptyPlaces: 30,
-                    departureDate : "2021/12/7 08:00"
-                },
-            ]
-        }
+        const flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight`);
 
         var ratios = {}
         for(var flight of flights.data){
