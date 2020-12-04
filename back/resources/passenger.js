@@ -17,8 +17,16 @@ module.exports.readAll = async () => {
   return passenger;
 };
 module.exports.createOne = async ({ body }) => {
-  await Passenger.create(body);
-  return await Passenger.findOne({where : body})
+  const alreadyExists = await Passenger.findOne({
+    where: body,
+  });
+  if (alreadyExists==null) {
+    await Passenger.create(body);
+    return await Passenger.findOne({ where: body });
+  } 
+  else {
+    return {alreadyExists : true};
+  }
 };
 module.exports.createMany = async (list) => {
   if (list.length > 0) {

@@ -27,7 +27,6 @@ const getRandomIndexes = (listLength, num = 1) => {
 
 const getRandomFirstNames = (num = 1) => {
   const lines = samples.firstNames;
-  // console.log(firstNames)
   indexes = getRandomIndexes(lines.length, num);
   var firstNames = new Array();
   for (var index of indexes) {

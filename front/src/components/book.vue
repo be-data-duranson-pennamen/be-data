@@ -55,17 +55,18 @@ export default {
             address: this.address,
           }
         );
-        console.log({
-          passengerId: newPassenger.data.id,
-          flightId: this.flight.id,
-        });
-        await axios.post(`${process.env.VUE_APP_API_URL}/ticket/create`, {
-          passengerId: newPassenger.data.id,
-          flightId: this.flight.id,
-        });
-
-        alert("Vol réservé");
-        this.$router.push("/");
+        console.log(newPassenger)
+        if(!newPassenger.data.alreadyExists) {
+          await axios.post(`${process.env.VUE_APP_API_URL}/ticket/create`, {
+            passengerId: newPassenger.data.id,
+            flightId: this.flight.id,
+          });
+  
+          alert("Vol réservé");
+          this.$router.push("/");
+        } else {
+          alert('Ce client a déjà réservé ce vol')
+        }
       }
     },
     showAirportFullName(airport) {

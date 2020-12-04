@@ -1,4 +1,4 @@
-const { Ticket } = require.main.require("./model");
+const { Ticket, Flight } = require.main.require("./model");
 const { flight, passenger } = require.main.require("./resources");
 
 module.exports.findOne = async ({ body }) => {
@@ -17,6 +17,10 @@ module.exports.deleteAll = async () => {
 
 module.exports.createOne = async ({ body }) => {
   await Ticket.create(body);
+  const flightChosen = await Flight.findOne({ where: { id: body.flightId } });
+  await flightChosen.update({
+    emptyPlaces: Number(flightChosen.dataValues.emptyPlaces) - 1,
+  });
 };
 module.exports.generateRandom = async () => {
   const flights = await flight.readAll();

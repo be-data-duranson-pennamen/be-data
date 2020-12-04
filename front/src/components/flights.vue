@@ -1,37 +1,5 @@
 <template>
   <section>
-    <div class="search-bar">
-      Recherche de vol : de
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            departureAirportWanted ? departureAirportWanted : "Départ..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="airport in departureAirports" :key="airport.id">
-            <a @click="departureAirportWanted = airport">{{
-              airport
-            }}</a>
-          </a>
-        </div>
-      </div>
-      vers
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            arrivalAirportWanted ? arrivalAirportWanted : "Arrivée..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="airport in arrivalAirports" :key="airport.id">
-            <a @click="arrivalAirportWanted = airport">{{
-              airport
-            }}</a>
-          </a>
-        </div>
-      </div>
-    </div>
     <div class="main-content flight-content">
       <div v-if="flightsShown.length == 0 && loaded">Aucun vol à afficher</div>
       <div v-if="flightsShown" class="flights">
@@ -53,24 +21,46 @@
             }}
           </div>
           <div class="item price">{{ flight.price / 100 }}€</div>
-          <div class="admin-buttons"  v-if="$store.state.admin">
-            <a
-              class="delete-button"
-              @click="deleteFlight(flight.id)"
+          <div class="admin-buttons" v-if="$store.state.admin">
+            <a class="delete-button" @click="deleteFlight(flight.id)"
               ><i class="mdi mdi-trash-can-outline"></i
             ></a>
-            <a
-              class="details-button"
-              @click="detailsFlight(flight.id)"
+            <a class="details-button" @click="detailsFlight(flight.id)"
               ><i class="mdi mdi-information-outline"></i
             ></a>
           </div>
-          <div class="admin-buttons"  v-if="!$store.state.admin && flight.emptyPlaces>0">
-            <a
-              class="book-button"
-              @click="bookFlight(flight.id)"
-              >Réservez ce vol</a>
+          <div
+            class="admin-buttons"
+            v-if="!$store.state.admin && flight.emptyPlaces > 0"
+          >
+            <a class="book-button" @click="bookFlight(flight.id)"
+              >Réservez ce vol</a
+            >
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-bar">
+      Recherche de vol : de
+      <div class="dropdown">
+        <button class="dropbtn">
+          {{ departureAirportWanted ? departureAirportWanted : "Départ..." }}
+        </button>
+        <div class="dropdown-content">
+          <a v-for="airport in departureAirports" :key="airport.id">
+            <a @click="departureAirportWanted = airport">{{ airport }}</a>
+          </a>
+        </div>
+      </div>
+      vers
+      <div class="dropdown">
+        <button class="dropbtn">
+          {{ arrivalAirportWanted ? arrivalAirportWanted : "Arrivée..." }}
+        </button>
+        <div class="dropdown-content">
+          <a v-for="airport in arrivalAirports" :key="airport.id">
+            <a @click="arrivalAirportWanted = airport">{{ airport }}</a>
+          </a>
         </div>
       </div>
     </div>
@@ -84,11 +74,11 @@ export default {
     return {
       flights: [],
       flightsShown: [],
-      departureAirports : ['Tout aéroport'],
-      arrivalAirports : ['Tout aéroport'],
-      departureAirportWanted : undefined,
-      arrivalAirportWanted : undefined,
-      loaded : false
+      departureAirports: ["Tout aéroport"],
+      arrivalAirports: ["Tout aéroport"],
+      departureAirportWanted: undefined,
+      arrivalAirportWanted: undefined,
+      loaded: false,
     };
   },
   async mounted() {
@@ -103,11 +93,13 @@ export default {
           new Date(firstFlight.departureDate).getTime() -
           new Date(secondFlight.departureDate).getTime()
       );
-      this.flights.forEach(flight => {
-        if(!this.departureAirports.includes(flight.departureAirport)) this.departureAirports.push(flight.departureAirport)
-        if(!this.arrivalAirports.includes(flight.arrivalAirport)) this.arrivalAirports.push(flight.arrivalAirport)
-      })
-      this.flightsShown = [...this.flights]
+      this.flights.forEach((flight) => {
+        if (!this.departureAirports.includes(flight.departureAirport))
+          this.departureAirports.push(flight.departureAirport);
+        if (!this.arrivalAirports.includes(flight.arrivalAirport))
+          this.arrivalAirports.push(flight.arrivalAirport);
+      });
+      this.flightsShown = [...this.flights];
     },
     showAirportFullName(airport) {
       if (airport == "CDG") return "Paris (Charles de gaulle)";
@@ -155,30 +147,40 @@ export default {
       this.getFlights();
     },
     detailsFlight(id) {
-      this.$router.push(`/flight/${id}`)
+      this.$router.push(`/flight/${id}`);
     },
     filterFlight() {
-      this.flightsShown = [...this.flights]
-      if (this.departureAirportWanted && this.departureAirportWanted!='Tout aéroport') {
-        this.flightsShown = this.flightsShown.filter(flight => flight.departureAirport == this.departureAirportWanted)
+      this.flightsShown = [...this.flights];
+      if (
+        this.departureAirportWanted &&
+        this.departureAirportWanted != "Tout aéroport"
+      ) {
+        this.flightsShown = this.flightsShown.filter(
+          (flight) => flight.departureAirport == this.departureAirportWanted
+        );
       }
-      if (this.arrivalAirportWanted  && this.arrivalAirportWanted!='Tout aéroport') {
-        this.flightsShown = this.flightsShown.filter(flight => flight.arrivalAirport == this.arrivalAirportWanted)
+      if (
+        this.arrivalAirportWanted &&
+        this.arrivalAirportWanted != "Tout aéroport"
+      ) {
+        this.flightsShown = this.flightsShown.filter(
+          (flight) => flight.arrivalAirport == this.arrivalAirportWanted
+        );
       }
     },
     bookFlight(id) {
-      this.$router.push(`/book/${id}`)
-    }
-  },
-  watch : {
-    departureAirportWanted :{
-      handler : "filterFlight",
-      deep : true
+      this.$router.push(`/book/${id}`);
     },
-    arrivalAirportWanted :{
-      handler : "filterFlight",
-      deep : true
-    }
-  }
+  },
+  watch: {
+    departureAirportWanted: {
+      handler: "filterFlight",
+      deep: true,
+    },
+    arrivalAirportWanted: {
+      handler: "filterFlight",
+      deep: true,
+    },
+  },
 };
 </script>
