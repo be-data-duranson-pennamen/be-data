@@ -7,7 +7,7 @@ Pour ce faire, nous avons créé une application web de type client-serveur dont
 
 # Installation en local
 
-1. Clonez ce repertoire git sur votre ordinateur. Si cela ne marche pas, demandez l'accès à Thomas Pennamen ou Fabien Duranson.
+1. Clonez ce repertoire git sur votre ordinateur.
  ```git clone https://github.com/be-data-duranson-pennamen/be-data```
 Vous devez avoir 2 dossier : front et back. Comme leur noms l'indique, il s'agit du back-end et du front-end.
 2. Assurez vous que npm est installé sur votre machine (essayer "npm something.js" dans un terminal et regardez si l'erreur est "command not found" ou "no such file or directory")
@@ -84,7 +84,7 @@ Retournez ensuite sur la page des vols et supprimez un vol. Il disparait, et tou
 
 ### Statistiques
 
-Pour voir des statistiques d'ordre global, retournez sur la page `admin` grâce à l'onglet `Menu` de la barre de navigation. Cliquez ensuite sur `Statistiques` sur la barre de navigation. Vous arrivez sur la dernière page de notre application front-end : `statistics`. Vous avez ici 4 graphiques, tous intéractifs ce qui vous permet d'avoir plus d'informations en passant la souris dessus :
+Pour voir des statistiques d'ordre global, retournez sur la page `admin` grâce à l'onglet `Menu` de la barre de navigation. Cliquez ensuite sur le bouton `Statistiques`. Vous arrivez sur la dernière page de notre application front-end : `statistics`. Vous avez ici 4 graphiques, tous intéractifs ce qui vous permet d'avoir plus d'informations en passant la souris dessus :
 - En haut à gauche, vous avez le revenu par ligne aérienne. C'est la somme des billets pris par des passagers pour effectuer ce trajet dans un sens ou dans l'autre. Il permet à l'administrateur de se rendre compte instantanément des lignes aériennes les plus prolifiques.
 - En haut à droite, vous avez les avions disponibles. Ceci permet à un administrateur de se rendre compte de la flotte dont dispose sa compagnie, et de voir s'il y a un désequilibre/une incohérence. Il s'agit ici du nombre **total** d'avions disponibles, on ne prend pas en compte leur utilisation pour des éventuels vols.
 - En bas à gauche, vous avez un graphique de type "radar" pour décrire le remplissage moyen des avions (par type). Ceci permet à un administrateur de vérifier que les avions dont il dispose sont bien dimensionnés. Nous avons placé une ligne idéale en vert à 90%.
