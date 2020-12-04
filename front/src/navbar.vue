@@ -1,14 +1,6 @@
 <template>
   <div class="navbar">
-    <!-- <a v-if="$route.path == '/statistics'" class="link">
-      <router-link to="/">Liste des vols</router-link>
-    </a> -->
     <a v-if="!$store.state.admin" class="link" @click="login">Admin</a>
-
-    <a v-if="$store.state.admin && $route.path == '/admin'" class="link">
-      <router-link to="/statistics">Statistiques</router-link>
-    </a>
-
     <a v-if="$store.state.admin && $route.path != '/admin'" class="link"
       ><router-link to="/admin">Menu</router-link></a
     >
