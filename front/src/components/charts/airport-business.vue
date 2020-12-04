@@ -1,0 +1,104 @@
+<script>
+import { Pie } from 'vue-chartjs'
+//import axios from "axios";
+
+var data = {}
+
+const options = {
+        title: {
+            display: true,
+            text: 'Business of airports this week'
+        }
+    }
+
+const availableBackgroundColors = [
+    'rgba(255, 99, 132,0.4)',
+    'rgba(54, 162, 235, 0.4)',
+    'rgba(255, 206, 86, 0.4)',
+    'rgba(75, 192, 192, 0.4)',
+    'rgba(153, 102, 255, 0.4)',
+    'rgba(255, 159, 64, 0.4)'
+    ]
+const availableBorderColors = [
+    'rgba(255, 99, 132, 1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)'
+    ]
+
+export default {
+    extends: Pie,
+    async mounted () {
+        //var flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight`);
+        const flights = {
+            data:[
+                {
+                    departureAirport : "CDG",
+                    arrivalAirport : "FRA",
+                    departureDate : "2020/12/7 08:00"
+                },{
+                    departureAirport : "AKK",
+                    arrivalAirport : "OIO",
+                    departureDate : "2020/12/7 10:00"
+                    
+                },
+                {
+                    departureAirport : "FRA",
+                    arrivalAirport : "CDG",
+                    departureDate : "2020/12/7 09:00"
+                },
+                {
+                    departureAirport : "FRA",
+                    arrivalAirport : "CDG",
+                    departureDate : "2021/12/7 08:00"
+                }
+            ]
+        }
+        var counts = flights.data.reduce((p, c) => {
+            var departure = c.departureAirport;
+            var arrival = c.arrivalAirport;
+            if (departure == null || arrival == null) {
+                return p
+            }
+            if (!(departure in p)) {
+                p[departure] = 0;
+            }
+            if (!(arrival in p)) {
+                p[arrival] = 0;
+            }
+            var departureDate = new Date(c.departureDate)
+            if (departureDate.getTime() < Date.now() + 7*24*3600*1000){ // On veut les vols de la semaine
+                p[departure]++;
+                p[arrival]++;
+            }
+            return p;
+        }, {});
+        
+
+        var dataValues = []
+        var labels = []
+        for (const key in counts){
+            labels.push(key)
+            dataValues.push(counts[key])
+        }
+        const nValues = dataValues.length
+
+        data = {
+            labels: labels,
+            datasets: [{
+                label: {display:false},
+                data: dataValues,
+                backgroundColor: availableBackgroundColors.slice(0,nValues),
+                borderColor: availableBorderColors.slice(0,nValues),
+            }]
+        }
+        console.log(counts)
+        this.renderChart(data, options)
+    }
+};
+</script>
+
+<style>
+</style>

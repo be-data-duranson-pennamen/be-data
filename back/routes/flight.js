@@ -10,6 +10,12 @@ module.exports = new Router()
             .then(found => res.json(found))
             .catch(next);
     })
+    .post("/find", (req, res, next) => {
+        flight
+            .findOne(req)
+            .then(found => res.json(found))
+            .catch(next);
+    })
     .post("/createMany", (req, res, next) => {
         flight
             .createMany(req)

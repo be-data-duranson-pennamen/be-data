@@ -11,15 +11,22 @@ const options = {
                     beginAtZero: true
                 }
             }]
+        },
+        title: {
+            display: true,
+            text: 'Available Planes'
+        },
+        legend: {
+            display: false,
         }
     }
 const availableBackgroundColors = [
-    'rgba(255, 99, 132,0.5',
-    'rgba(54, 162, 235, 0.5)',
-    'rgba(255, 206, 86, 0.5)',
-    'rgba(75, 192, 192, 0.5)',
-    'rgba(153, 102, 255, 0.5)',
-    'rgba(255, 159, 64, 0.5)'
+    'rgba(255, 99, 132,0.4)',
+    'rgba(54, 162, 235, 0.4)',
+    'rgba(255, 206, 86, 0.4)',
+    'rgba(75, 192, 192, 0.4)',
+    'rgba(153, 102, 255, 0.4)',
+    'rgba(255, 159, 64, 0.4)'
     ]
 const availableBorderColors = [
     'rgba(255, 99, 132, 1)',
@@ -33,7 +40,6 @@ export default {
     extends: Bar,
     async mounted () {
         const planes = await axios.get(`${process.env.VUE_APP_API_URL}/plane`);
-        console.log(planes)
         var counts = planes.data.reduce((p, c) => {
             var name = c.type;
             if (name == null) {
@@ -57,14 +63,12 @@ export default {
         data = {
             labels: labels,
             datasets: [{
-                label: 'Available Planes',
                 data: dataValues,
                 backgroundColor: availableBackgroundColors.slice(0,nValues),
                 borderColor: availableBorderColors.slice(0,nValues),
                 borderWidth: 1
             }]
         }
-        console.log(counts)
         this.renderChart(data, options)
     }
 };
