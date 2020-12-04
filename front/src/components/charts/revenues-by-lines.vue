@@ -38,10 +38,21 @@ export default {
             return p;
         }, {});
 
+        const flights = await axios.get(`${process.env.VUE_APP_API_URL}/flight/`);
+
+        const flightsReduced = {}
+        for(var element of flights.data){
+            flightsReduced[element.id] = 
+            {
+                type : element.type,
+                capacity : element.capacity
+            }
+        }
+
         var lines = {} // object utilisé comme dictionnaire avec comme clefs les lignes et en valeurs les chiffres d'Affaire
 
         for(const flightId in counts){
-            const flight = await axios.post(`${process.env.VUE_APP_API_URL}/flight/`,{id:flightId});
+            var flight = flights[flightId]
             const line = [flight.data.departureAirport, flight.data.arrivalAirport].sort().join("-")  // On parle de ligne pour s'affranchir du problème aller-retour
             if (!(line in lines)) {
                 lines[line] = 0;
