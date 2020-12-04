@@ -1,38 +1,76 @@
 <template>
-  <section class="main-content flight-content">
-    <div v-if="flights.length == 0">Aucun vol à afficher</div>
-    <div v-if="flights" class="flights">
-      <div class="flight" v-for="flight in flights" :key="flight.id">
-        <strong class="item">
-          Vol {{ showAirportFullName(flight.departureAirport) }} ->
-          {{ showAirportFullName(flight.arrivalAirport) }}
-        </strong>
-        <div class="item">
-          <strong> Départ : </strong>{{ showDate(flight.departureDate) }}
-          <strong> Arrivée :</strong>
-          {{ showDate(flight.arrivalDate) }}
-        </div>
-        <div class="item">
+  <section>
+    <div class="search-bar">
+      Recherche de vol : de
+      <div class="dropdown">
+        <button class="dropbtn">
           {{
-            flight.emptyPlaces > 0
-              ? flight.emptyPlaces + " places encore disponibles"
-              : "Vol complet !"
+            departureAirportWanted ? departureAirportWanted : "Départ..."
           }}
+        </button>
+        <div class="dropdown-content">
+          <a v-for="airport in departureAirports" :key="airport.id">
+            <a @click="departureAirportWanted = airport">{{
+              airport
+            }}</a>
+          </a>
         </div>
-        <div class="item price">{{ flight.price / 100 }}€</div>
-        <div class="admin-buttons">
-          <a
-            v-if="$store.state.admin"
-            class="delete-button"
-            @click="deleteFlight(flight.id)"
-            ><i class="mdi mdi-trash-can-outline"></i
-          ></a>
-          <a
-            v-if="$store.state.admin"
-            class="details-button"
-            @click="detailsFlight(flight.id)"
-            ><i class="mdi mdi-information-outline"></i
-          ></a>
+      </div>
+      vers
+      <div class="dropdown">
+        <button class="dropbtn">
+          {{
+            arrivalAirportWanted ? arrivalAirportWanted : "Arrivée..."
+          }}
+        </button>
+        <div class="dropdown-content">
+          <a v-for="airport in arrivalAirports" :key="airport.id">
+            <a @click="arrivalAirportWanted = airport">{{
+              airport
+            }}</a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="main-content flight-content">
+      <div v-if="flightsShown.length == 0 && loaded">Aucun vol à afficher</div>
+      <div v-if="flightsShown" class="flights">
+        <div class="flight" v-for="flight in flightsShown" :key="flight.id">
+          <strong class="item">
+            Vol {{ showAirportFullName(flight.departureAirport) }} ->
+            {{ showAirportFullName(flight.arrivalAirport) }}
+          </strong>
+          <div class="item">
+            <strong> Départ : </strong>{{ showDate(flight.departureDate) }}
+            <strong> Arrivée :</strong>
+            {{ showDate(flight.arrivalDate) }}
+          </div>
+          <div class="item">
+            {{
+              flight.emptyPlaces > 0
+                ? flight.emptyPlaces + " places encore disponibles"
+                : "Vol complet !"
+            }}
+          </div>
+          <div class="item price">{{ flight.price / 100 }}€</div>
+          <div class="admin-buttons"  v-if="$store.state.admin">
+            <a
+              class="delete-button"
+              @click="deleteFlight(flight.id)"
+              ><i class="mdi mdi-trash-can-outline"></i
+            ></a>
+            <a
+              class="details-button"
+              @click="detailsFlight(flight.id)"
+              ><i class="mdi mdi-information-outline"></i
+            ></a>
+          </div>
+          <div class="admin-buttons"  v-if="!$store.state.admin && flight.emptyPlaces>0">
+            <a
+              class="book-button"
+              @click="bookFlight(flight.id)"
+              >Réservez ce vol</a>
+          </div>
         </div>
       </div>
     </div>
@@ -45,10 +83,17 @@ export default {
   data() {
     return {
       flights: [],
+      flightsShown: [],
+      departureAirports : ['Tout aéroport'],
+      arrivalAirports : ['Tout aéroport'],
+      departureAirportWanted : undefined,
+      arrivalAirportWanted : undefined,
+      loaded : false
     };
   },
   async mounted() {
     this.getFlights();
+    this.loaded = true;
   },
   methods: {
     async getFlights() {
@@ -58,6 +103,11 @@ export default {
           new Date(firstFlight.departureDate).getTime() -
           new Date(secondFlight.departureDate).getTime()
       );
+      this.flights.forEach(flight => {
+        if(!this.departureAirports.includes(flight.departureAirport)) this.departureAirports.push(flight.departureAirport)
+        if(!this.arrivalAirports.includes(flight.arrivalAirport)) this.arrivalAirports.push(flight.arrivalAirport)
+      })
+      this.flightsShown = [...this.flights]
     },
     showAirportFullName(airport) {
       if (airport == "CDG") return "Paris (Charles de gaulle)";
@@ -105,8 +155,30 @@ export default {
       this.getFlights();
     },
     detailsFlight(id) {
-      console.log(id);
+      this.$router.push(`/flight/${id}`)
     },
+    filterFlight() {
+      this.flightsShown = [...this.flights]
+      if (this.departureAirportWanted && this.departureAirportWanted!='Tout aéroport') {
+        this.flightsShown = this.flightsShown.filter(flight => flight.departureAirport == this.departureAirportWanted)
+      }
+      if (this.arrivalAirportWanted  && this.arrivalAirportWanted!='Tout aéroport') {
+        this.flightsShown = this.flightsShown.filter(flight => flight.arrivalAirport == this.arrivalAirportWanted)
+      }
+    },
+    bookFlight(id) {
+      this.$router.push(`/book/${id}`)
+    }
   },
+  watch : {
+    departureAirportWanted :{
+      handler : "filterFlight",
+      deep : true
+    },
+    arrivalAirportWanted :{
+      handler : "filterFlight",
+      deep : true
+    }
+  }
 };
 </script>

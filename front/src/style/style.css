@@ -120,6 +120,7 @@ strong {
   max-height: 20vh;
   width: 300px;
   overflow-y: auto;
+  z-index : 4;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
@@ -164,6 +165,14 @@ strong {
   color: white;
   cursor: pointer;
   border-radius: 3px;
+}
+.book-button {
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: solid 1px #979797;
+  background-color: #f1f1f1;
+
 }
 .details-button {
   margin: 5px;
@@ -237,4 +246,15 @@ strong {
 .panel {
   max-width : 40vw;
   max-height : 40vh;
+  } 
+.search-bar {
+  position: absolute;
+  top : 20px;
+  left : 50vw;
+  transform: translate(-50%,0);
+  justify-content: center;
+}
+.passengers-view {
+  height: 20vh;
+  overflow-y: auto;
 }

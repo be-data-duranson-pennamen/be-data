@@ -6,6 +6,8 @@ import Statistics from "@/components/statistics";
 import Admin from "@/components/admin";
 import FlightCreator from "@/components/flight-creator";
 import Generate from "@/components/generate";
+import Book from "@/components/book";
+import Flight from "@/components/flight";
 
 Vue.use(Router);
 
@@ -51,6 +53,23 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         if (store.state.admin) next();
         else next("/");
+      },
+    },
+    {
+      path: "/book/:flightId",
+      name: "book",
+      component: Book,
+    },
+    {
+      path: "/flight/:flightId",
+      name: "flight",
+      component: Flight,
+    },
+    {
+      path: "*",
+      component: Flights,
+      beforeEnter: (to, from, next) => {
+        next("/");
       },
     },
   ],

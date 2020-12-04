@@ -6,9 +6,9 @@ const { employee, passenger, plane, ticket } = require.main.require(
 
 module.exports = new Router()
   .get("/employee", (req, res, next) => {
-    if (req && req.query && req.query.num && typeof req.query.num == Number) {
+    if (req && req.query && req.query.num && !isNaN(Number(req.query.num))) {
       employee
-        .generateRandom(req.query.num)
+        .generateRandom(Number(req.query.num))
         .then(() => res.send("Généré avec succès"))
         .catch(next);
     } else {
@@ -19,9 +19,9 @@ module.exports = new Router()
     }
   })
   .get("/plane", (req, res, next) => {
-    if (req && req.query && req.query.num && typeof req.query.num == Number) {
+    if (req && req.query && req.query.num && !isNaN(Number(req.query.num))) {
       plane
-        .generateRandom(req.query.num)
+        .generateRandom(Number(req.query.num))
         .then(() => res.send("Généré avec succès"))
         .catch(next);
     } else {
@@ -32,9 +32,10 @@ module.exports = new Router()
     }
   })
   .get("/passenger", (req, res, next) => {
-    if (req && req.query && req.query.num && typeof req.query.num == Number) {
+
+    if (req && req.query && req.query.num && !isNaN(Number(req.query.num))) {
       passenger
-        .generateRandom(req.query.num)
+        .generateRandom(Number(req.query.num))
         .then(() => res.send("Généré avec succès"))
         .catch(next);
     } else {
@@ -44,7 +45,6 @@ module.exports = new Router()
         .catch(next);
     }
   })
-  // pas opti
   .get("/ticket", (req, res, next) => {
     ticket
       .generateRandom()

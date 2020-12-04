@@ -71,7 +71,7 @@ const getRandomPlaneTypes = (num = 1) => {
   for (let i = 0; i < num; i++) {
     const randomPlane =
       planePossibilities[
-        Math.floor(Math.random() * (planePossibilities.length - 1))
+        Math.floor(Math.random() * planePossibilities.length)
       ];
     if (randomPlane.type) {
       planeTypes.push(randomPlane);
