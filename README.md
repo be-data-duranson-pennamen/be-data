@@ -19,7 +19,7 @@ Pour ce faire, nous avons créé une application web de type client-serveur dont
 # Installation
 
 1. Clonez ce repertoire git sur votre ordinateur. Si cela ne marche pas, demandez l'accès à Thomas Pennamen ou Fabien Duranson.
- git clone https://github.com/be-data-duranson-pennamen/be-data
+ ```git clone https://github.com/be-data-duranson-pennamen/be-data```
 Vous devez avoir 2 dossier : front et back. Comme leur noms l'indique, il s'agit du back-end et du front-end.
 2. Assurez vous que npm est installé sur votre machine (essayer "npm something.js" dans un terminal et regardez si l'erreur est "command not found" ou "no such file or directory")
 3. Lancer le serveur back-end : ouvrir un terminal dans le dossier /back et executez la commande suivante :
