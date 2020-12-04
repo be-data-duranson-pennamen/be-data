@@ -30,6 +30,9 @@ module.exports.createMany = async (list) => {
 module.exports.deleteOne = async ({ body }) => {
   await Employee.destroy({ where: { secuNum: body.secuNum } });
 };
+module.exports.deleteAll = async () => {
+  await Employee.destroy({ truncate : true });
+};
 
 module.exports.generateRandom = async (num = 10) => {
   const allEmployees = await Employee.findAll()

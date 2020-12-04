@@ -28,6 +28,9 @@ module.exports.createOne = async ({ body }) => {
 module.exports.deleteOne = async ({ body }) => {
   await Flight.destroy({ where: { id: body.id } });
 };
+module.exports.deleteAll = async () => {
+  await Flight.destroy({ truncate : true });
+};
 module.exports.createMany = async ({body}) => {
   if(body.flightList.length>0) {
     await Flight.bulkCreate(body.flightList);

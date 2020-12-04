@@ -47,7 +47,7 @@ module.exports = new Router()
   // pas opti
   .get("/ticket", (req, res, next) => {
     ticket
-      .generateRandom(req)
+      .generateRandom()
       .then(() => res.send("Généré avec succès"))
       .catch(next);
   });

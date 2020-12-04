@@ -8,6 +8,7 @@ module.exports = new Router()
   .use("/plane", require("./plane"))
   .use("/ticket", require("./ticket"))
   .use("/generate", require("./generation"))
+  .use("/delete", require("./delete"))
   .use((err, req, res, next) => {
     res.status(500).json(err);
   });

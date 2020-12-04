@@ -27,13 +27,14 @@ module.exports.createMany = async (list) => {
 module.exports.deleteOne = async ({ body }) => {
   await Passenger.destroy({ where: { numero: body.numero } });
 };
-
+module.exports.deleteAll = async () => {
+  await Passenger.destroy({ truncate : true });
+};
 module.exports.getAllSecuNum = async () => {
   const output = await Passenger.findAll();
   return output.map((x) => x.secuNum);
 };
 module.exports.generateRandom = async (num = 100) => {
-  console.log('oui')
   const allPassengers = await Passenger.findAll();
   const usedSecuNum = allPassengers.map((x) => x.secuNum);
   if (!usedSecuNum) usedSecuNum = [];

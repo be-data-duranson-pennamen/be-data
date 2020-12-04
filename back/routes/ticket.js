@@ -28,9 +28,3 @@ module.exports = new Router()
             .then(() => res.json())
             .catch(next);
     })
-    .delete("/", (req, res, next) => {
-        ticket
-            .deleteOne(req)
-            .then(() => res.json())
-            .catch(next);
-    })

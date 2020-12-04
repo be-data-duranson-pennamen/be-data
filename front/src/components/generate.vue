@@ -19,6 +19,16 @@
         Créer des clients
       </button>
     </div>
+    <div class="item">
+      <button class="blue-button" @click="generateTickets">
+        Créer des billets (nombre aléatoire)
+      </button>
+    </div>
+    <div class="item">
+      <button class="red-button" @click="deleteAllData">
+        Supprimer toutes les données
+      </button>
+    </div>
     <!-- <div class="item">
         <input type="number" min="0" v-model="ticketNumber">
       <button class="blue-button" @click="generateTickets">
@@ -56,6 +66,20 @@ export default {
         `${process.env.VUE_APP_API_URL}/generate/passenger?num=${this.passengerNumber}`
       );
       alert(`${this.passengerNumber} clients ont été créés`);
+    },
+    async generateTickets() {
+      await axios.get(
+        `${process.env.VUE_APP_API_URL}/generate/ticket`
+      );
+      alert(`Des billets ont été créés`);
+    },
+    async deleteAllData() {
+      const wantToDelete = confirm("Voulez-vous vraiment supprimer tout le contenu de la base de données ?");
+      if (wantToDelete) {
+        await axios.get(
+          `${process.env.VUE_APP_API_URL}/delete/all`
+        );
+      }
     },
     // async generateTickets() {
     //     await axios.post(`${process.env.VUE_APP_API_URL}/generate/ticket?num=${this.ticketNumber}`)

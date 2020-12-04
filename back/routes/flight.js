@@ -22,12 +22,6 @@ module.exports = new Router()
             .then(() => res.json())
             .catch(next);
     })
-    .delete("/", (req, res, next) => {
-        flight
-            .deleteOne(req)
-            .then(() => res.json())
-            .catch(next);
-    })
     .get("/airports", (req, res, next) => {
         res.json(flight.getAllAvailableAirports())
     })

@@ -1,146 +1,152 @@
 <template>
   <section v-if="loaded" class="main-content">
-    <h1>Création de vol</h1>
+    <div class="form">
+      <h1>Création de vol</h1>
 
-    <div v-if="departureAirport && departureAirport.name" class="item">
-      <strong>Départ</strong>
-      <div class="dropdown">
-        <button class="dropbtn">{{ departureAirport.name }}</button>
-        <div class="dropdown-content">
-          <a v-for="airport in airports" :key="airport.id">
-            <a @click="departureAirport = airport">{{ airport.name }}</a>
-          </a>
+      <div v-if="departureAirport && departureAirport.name" class="item">
+        <strong>Départ</strong>
+        <div class="dropdown">
+          <button class="dropbtn">{{ departureAirport.name }}</button>
+          <div class="dropdown-content">
+            <a v-for="airport in airports" :key="airport.id">
+              <a @click="departureAirport = airport">{{ airport.name }}</a>
+            </a>
+          </div>
+        </div>
+        <input type="date" :min="minimumDate" v-model="departureDate.day" />
+        <input type="time" v-model="departureDate.time" />
+      </div>
+      <div v-if="arrivalAirport && arrivalAirport.name" class="item">
+        <strong>Arrivée</strong>
+        <div class="dropdown">
+          <button class="dropbtn">{{ arrivalAirport.name }}</button>
+          <div class="dropdown-content">
+            <a v-for="airport in airports" :key="airport.id">
+              <a @click="arrivalAirport = airport">{{ airport.name }}</a>
+            </a>
+          </div>
+        </div>
+        <input type="date" v-model="arrivalDate.day" disabled />
+        <input type="time" v-model="arrivalDate.time" disabled />
+      </div>
+      <div v-if="planes" class="item">
+        <strong>Avion</strong>
+        <div class="dropdown">
+          <button class="dropbtn">
+            {{
+              chosenPlane
+                ? "N°" + chosenPlane.id + " - " + chosenPlane.type
+                : "Parcourir..."
+            }}
+          </button>
+          <div class="dropdown-content">
+            <a v-for="plane in planes" :key="plane.id">
+              <a @click="chosenPlane = plane"
+                >N°{{ plane.id }} - {{ plane.type }} - {{ plane.capacity }}</a
+              >
+            </a>
+          </div>
         </div>
       </div>
-      <input type="date" :min="minimumDate" v-model="departureDate.day" />
-      <input type="time" v-model="departureDate.time" />
+      <div v-if="pilotsShown" class="item">
+        <strong>Pilotes</strong>
+        <div class="dropdown">
+          <button class="dropbtn">
+            {{
+              pilot1
+                ? pilot1.firstName + " " + pilot1.lastName
+                : "Pilote n°1..."
+            }}
+          </button>
+          <div class="dropdown-content">
+            <a v-for="pilot in pilotsShown" :key="pilot.secuNum">
+              <a @click="pilot1 = pilot">{{
+                pilot.firstName + " " + pilot.lastName
+              }}</a>
+            </a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            {{
+              pilot2
+                ? pilot2.firstName + " " + pilot2.lastName
+                : "Pilote n°2..."
+            }}
+          </button>
+          <div class="dropdown-content">
+            <a v-for="pilot in pilotsShown" :key="pilot.secuNum">
+              <a @click="pilot2 = pilot">{{
+                pilot.firstName + " " + pilot.lastName
+              }}</a>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div v-if="stewartsShown" class="item">
+        <strong>Stewarts</strong>
+        <div class="dropdown">
+          <button class="dropbtn">
+            {{
+              stewart1
+                ? stewart1.firstName + " " + stewart1.lastName
+                : "Stewart n°1..."
+            }}
+          </button>
+          <div class="dropdown-content">
+            <a v-for="stewart in stewartsShown" :key="stewart.secuNum">
+              <a @click="stewart1 = stewart">{{
+                stewart.firstName + " " + stewart.lastName
+              }}</a>
+            </a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            {{
+              stewart2
+                ? stewart2.firstName + " " + stewart2.lastName
+                : "Stewart n°2..."
+            }}
+          </button>
+          <div class="dropdown-content">
+            <a v-for="stewart in stewartsShown" :key="stewart.secuNum">
+              <a @click="stewart2 = stewart">{{
+                stewart.firstName + " " + stewart.lastName
+              }}</a>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <strong>Prix du billet</strong>
+        <input
+          type="number"
+          min="0"
+          v-model="price"
+          placeholder="Prix en centimes"
+        />
+      </div>
+      <div class="item">
+        <strong>Fréquence</strong>
+        <div class="dropdown">
+          <button class="dropbtn">
+            {{ frequency }}
+          </button>
+          <div class="dropdown-content">
+            <a v-for="choice in frequencyChoice" :key="choice.id">
+              <a @click="frequency = choice">{{ choice }}</a>
+            </a>
+          </div>
+        </div>
+      </div>
+      <button class="design-button green-button" @click="validate">
+        Valider
+      </button>
+      <button class="design-button blue-button" @click="$router.push('/admin')">
+        Retour
+      </button>
     </div>
-    <div v-if="arrivalAirport && arrivalAirport.name" class="item">
-      <strong>Arrivée</strong>
-      <div class="dropdown">
-        <button class="dropbtn">{{ arrivalAirport.name }}</button>
-        <div class="dropdown-content">
-          <a v-for="airport in airports" :key="airport.id">
-            <a @click="arrivalAirport = airport">{{ airport.name }}</a>
-          </a>
-        </div>
-      </div>
-      <input type="date" v-model="arrivalDate.day" disabled />
-      <input type="time" v-model="arrivalDate.time" disabled />
-    </div>
-    <div v-if="planes" class='item'>
-      <strong>Avion</strong>
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            chosenPlane
-              ? "N°" + chosenPlane.id + " - " + chosenPlane.type
-              : "Parcourir..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="plane in planes" :key="plane.id">
-            <a @click="chosenPlane = plane"
-              >N°{{ plane.id }} - {{ plane.type }} - {{ plane.capacity }}</a
-            >
-          </a>
-        </div>
-      </div>
-    </div>
-    <div v-if="pilotsShown" class='item'>
-      <strong>Pilotes</strong>
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            pilot1 ? pilot1.firstName + " " + pilot1.lastName : "Pilote n°1..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="pilot in pilotsShown" :key="pilot.secuNum">
-            <a @click="pilot1 = pilot">{{
-              pilot.firstName + " " + pilot.lastName
-            }}</a>
-          </a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            pilot2 ? pilot2.firstName + " " + pilot2.lastName : "Pilote n°2..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="pilot in pilotsShown" :key="pilot.secuNum">
-            <a @click="pilot2 = pilot">{{
-              pilot.firstName + " " + pilot.lastName
-            }}</a>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div v-if="stewartsShown" class='item'>
-      <strong>Stewarts</strong>
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            stewart1
-              ? stewart1.firstName + " " + stewart1.lastName
-              : "Stewart n°1..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="stewart in stewartsShown" :key="stewart.secuNum">
-            <a @click="stewart1 = stewart">{{
-              stewart.firstName + " " + stewart.lastName
-            }}</a>
-          </a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{
-            stewart2
-              ? stewart2.firstName + " " + stewart2.lastName
-              : "Stewart n°2..."
-          }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="stewart in stewartsShown" :key="stewart.secuNum">
-            <a @click="stewart2 = stewart">{{
-              stewart.firstName + " " + stewart.lastName
-            }}</a>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class='item'>
-      <strong>Prix du billet</strong>
-      <input
-        type="number"
-        min="0"
-        v-model="price"
-        placeholder="Prix en centimes"
-      />
-    </div>
-    <div class='item'>
-      <strong>Fréquence</strong>
-      <div class="dropdown">
-        <button class="dropbtn">
-          {{ frequency }}
-        </button>
-        <div class="dropdown-content">
-          <a v-for="choice in frequencyChoice" :key="choice.id">
-            <a @click="frequency = choice">{{ choice }}</a>
-          </a>
-        </div>
-      </div>
-    </div>
-    <button class="design-button green-button" @click="validate">
-      Valider
-    </button>
-    <button class="design-button blue-button" @click="$router.push('/admin')">
-      Retour
-    </button>
   </section>
 </template>
 <script>
@@ -341,7 +347,7 @@ export default {
         this.stewart1 = undefined;
         this.stewart2 = undefined;
         this.price = undefined;
-        this.frequency = 'Vol unique'
+        this.frequency = "Vol unique";
       }
     },
   },

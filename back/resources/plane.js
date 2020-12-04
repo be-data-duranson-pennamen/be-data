@@ -25,6 +25,9 @@ module.exports.createMany = async (list) => {
 module.exports.deleteOne = async ({ body }) => {
   await Plane.destroy({ where: { id: body.id } });
 };
+module.exports.deleteAll = async () => {
+  await Plane.destroy({ truncate : true });
+};
 module.exports.generateRandom = async (num = 10) => {
 
   await Plane.bulkCreate(getRandomPlaneTypes(num))

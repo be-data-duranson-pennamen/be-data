@@ -67,10 +67,15 @@ const getRandomCities = (num = 1) => {
 
 const getRandomPlaneTypes = (num = 1) => {
   const planePossibilities = samples.planeTypes;
-  let planeTypes = []
-  for(let i = 0; i<num; i++) {
-    const randomPlane = planePossibilities[Math.round(Math.random()*planePossibilities.length-1)]
-    planeTypes.push(randomPlane)
+  let planeTypes = [];
+  for (let i = 0; i < num; i++) {
+    const randomPlane =
+      planePossibilities[
+        Math.floor(Math.random() * (planePossibilities.length - 1))
+      ];
+    if (randomPlane.type) {
+      planeTypes.push(randomPlane);
+    }
   }
   return planeTypes;
 };
