@@ -29,12 +29,6 @@
         Supprimer toutes les données
       </button>
     </div>
-    <!-- <div class="item">
-        <input type="number" min="0" v-model="ticketNumber">
-      <button class="blue-button" @click="generateTickets">
-        Créer des billets achétés
-      </button>
-    </div> -->
   </section>
 </template>
 <script>
@@ -43,9 +37,8 @@ export default {
   data() {
     return {
       employeeNumber: 10,
-      passengerNumber: 100,
-      planeNumber: 5,
-      ticketNumber: 100,
+      passengerNumber: 1000,
+      planeNumber: 5
     };
   },
   methods: {
@@ -79,12 +72,9 @@ export default {
         await axios.get(
           `${process.env.VUE_APP_API_URL}/delete/all`
         );
+        alert('Les données ont bien été supprimées')
       }
     },
-    // async generateTickets() {
-    //     await axios.post(`${process.env.VUE_APP_API_URL}/generate/ticket?num=${this.ticketNumber}`)
-    //     alert(`${this.ticketNumber} billets ont été créés`)
-    // }
   },
 };
 </script>

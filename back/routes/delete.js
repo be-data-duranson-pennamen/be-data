@@ -38,22 +38,26 @@ module.exports = new Router()
   .get("/all", (req, res, next) => {
     ticket
       .deleteAll()
-      .then(() => {})
-      .catch(next);
-    flight
-      .deleteAll()
-      .then(() => {})
-      .catch(next);
-    plane
-      .deleteAll()
-      .then(() => {})
-      .catch(next);
-    passenger
-      .deleteAll()
-      .then(() => {})
-      .catch(next);
-    employee
-      .deleteAll()
-      .then(() => {})
+      .then(() =>
+        flight
+          .deleteAll()
+          .then(() =>
+            plane
+              .deleteAll()
+              .then(() =>
+                passenger
+                  .deleteAll()
+                  .then(() =>
+                    employee
+                      .deleteAll()
+                      .then(() => res.send("Supprimé"))
+                      .catch(next)
+                  )
+                  .catch(next)
+              )
+              .catch(next)
+          )
+          .catch(next)
+      )
       .catch(next);
   });
