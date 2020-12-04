@@ -156,7 +156,16 @@
     "Franck",
     "Sophia",
     "Cunégonde",
-    "Phillipe"
+    "Phillipe",
+    "Edouard",
+    "Nicolas",
+    "Jérémy",
+    "Sandra",
+    "Elisabeth",
+    "Joana",
+    "Camille",
+    "Jeanne",
+    "Alexandra"
   ],
   "lastNames": [
     "Dupont",
@@ -166,12 +175,35 @@
     "Ampere",
     "Deschamps",
     "Larbuste",
-    "De Fondevielle"
+    "De Fondevielle",
+    "Armiste",
+    "Lergot",
+    "Lagit",
+    "Souchon",
+    "Bernard",
+    "Brassens",
+    "Anthon"
   ],
   "planeTypes": [
     {
       "type": "Boeing 747",
       "capacity": 544
+    },
+    {
+      "type": "Boeing 717",
+      "capacity": 100
+    },
+    {
+      "type": "Boeing 737",
+      "capacity": 100
+    },
+    {
+      "type": "Boeing 737 MAX",
+      "capacity": 180
+    },
+    {
+      "type": "Boeing 757",
+      "capacity": 189
     },
     {
       "type": "Rafale",
@@ -184,6 +216,14 @@
     {
       "type": "Airbus a320",
       "capacity": 174
+    },
+    {
+      "type": "Airbus a380",
+      "capacity": 330
+    },
+    {
+      "type": "Airbus a340",
+      "capacity": 475
     }
   ],
   "streets": [
@@ -191,6 +231,11 @@
     "Avenue des Pres",
     "Boulevard Monbéliard",
     "Rue du Parc",
-    "Avenue des Micocouliers"
+    "Avenue des Micocouliers",
+    "Boulevard des peupliers",
+    "Impasse du gros chêne",
+    "Rue des éclats",
+    "Avenue Jean Jorres",
+    "Parc du 11 Novembre"
   ]
 }
