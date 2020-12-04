@@ -5,9 +5,19 @@
 Dans le cadre du MOD Système de Base de Données, nous avons créé une base de données permettant de gérer un traffic aérien avec des fonctionnalités client (réserver un vol) et administrateur (créer un vol, voir des statistiques et voir les détails d'un vol).
 Pour ce faire, nous avons créé une application web de type client-serveur dont nous détaillerons les choix technologiques plus tard.
 
+# Cahier des charges
+
+
+
 # Installation en local
 
-1. Clonez ce repertoire git sur votre ordinateur.
+## Préambule
+
+Il est nécessaire d'avoir git et Node.js sur son pc pour pouvoir cloner et lancer le projet. Vous pouvez trouver les liens de téléchargements ici :
+Node - https://nodejs.org/en/download/
+Git - https://git-scm.com/downloads
+
+1. Clonez ce repertoire git sur votre ordinateur dans un invite de commande à l'endroit désiré.
  ```git clone https://github.com/be-data-duranson-pennamen/be-data```
 Vous devez avoir 2 dossier : front et back. Comme leur noms l'indique, il s'agit du back-end et du front-end.
 2. Assurez vous que npm est installé sur votre machine (essayer "npm something.js" dans un terminal et regardez si l'erreur est "command not found" ou "no such file or directory")
@@ -17,7 +27,7 @@ Cette commande va installer tous les packages utiles à l'execution de notre cod
 ```npm start```
 Nous avons créé un raccourci pour que npm start aille directement pointer sur le fichier de départ du serveur. Vous devez maintenant voir le message ```API listening on port 3000```, le serveur back-end est lancé en local et tourne sur votre port 3000, parfait !
 4. Lancez le front-end : ouvrez une nouvelle fenetre de terminal et allez dans le dossier /front. Executez ```npm i``` puis executez :
-```vue serve```
+```npm run serve```
 ou
 ```./node_modules/.bin/vue-cli-service serve```
 si cela ne marche pas
@@ -112,16 +122,16 @@ VueChart est un module de Vue. Il permet de créer des graphiques assez sympas t
 
 ## PosgreSQL
 
-Nous ne connaissions que 2 système SQL gratuits : MySQL et PosgreSQL. Nous avons choisi PosgreSQL car il était hébergé sur le web (MySQL est un système de base de données local) et nous avions besoin que tous les utilisateurs aient accès aux même données. Nous avons utilisé le logiciel pgAdmin 4 pour avoir un accès direct à la base de données. Nous avons ensuite utilisé le package sequelize (npm) pour assurer la communication entre notre serveur et la base de données.
+Nous ne connaissions que 2 système SQL gratuits : MySQL et PosgreSQL. Nous avons choisi PosgreSQL car il était hébergé sur le web (MySQL est un système de base de données local) et nous avions besoin que tous les utilisateurs aient accès aux même données. Nous avons utilisé le logiciel pgAdmin 4 pour avoir un accès direct à la base de données. Nous avons ensuite utilisé le package sequelize (npm) pour assurer la communication entre notre serveur et la base de données. La base de données est hébergée sur un serveur heroku gratuit (ce qui limite la bande passante de la base de données ainsi que ça capcité maximale, éviter donc de dépasser les 10 000 lignes de données svp).
 
 # Schéma de la base de données
 
 Notre choix de sujet s'est porté sur la gestion des vols d'un aéroport. 
 Il nous a semblé logique de découper les données en trois tables disctinctes à savoir :
 - employee : décrit les informations sur les employés de l'aéroport qui sont en lien avec le vols (stewart et pilote). Les colonnes sont secuNum(clé primaire, int), firstName(string), lastName(string), address(string), job(string), license(int), salary(int)
-- passenger : décrit les informations sur les clients de l'aéroport. Les colonnes sont numero(clé primaire, int), fistName(str), lastName(str), address(str)
-- planes : décrit les informations des avions. Les colonnes sont numPlane(clé primaire, int), type(str), capacity(int)
+- passenger : décrit les informations sur les clients de l'aéroport. Les colonnes sont id(clé primaire, int), fistName(str), lastName(str), address(str)
+- planes : décrit les informations des avions. Les colonnes sont planeId(clé primaire, int), type(str), capacity(int)
 
 Avec ces trois tables nous pouvons maintenant créé des vols et tickets :
-- flight : décrit les informations sur un vol. Les colonnes sont num(clé primaire, int), departureAirport(string), arrivalAirport(string), departureDate(date), arrivalDate(date), pilot1(int qui correspond au secuNum de l'employé), pilot2 (int idem), stewart1(idem), stewart2(idem), emptyPlaces(int), numPlane(int)
-- ticket : décrit les information d'un ticket. Les colonnes sont num(clé primaire, int), date(date du décollage, date), price(int), numFlight(numéro du vol, int), numPassenger(numéro du client, int)
+- flight : décrit les informations sur un vol. Les colonnes sont id(clé primaire, int), departureAirport(string), arrivalAirport(string), departureDate(date), arrivalDate(date), pilot1(int qui correspond au secuNum de l'employé), pilot2 (int idem), stewart1(idem), stewart2(idem), emptyPlaces(int), planeId(int)
+- ticket : décrit les information d'un ticket. Les colonnes sont id(clé primaire, int), flightId(numéro du vol, int), passengerId(numéro du client, int)
