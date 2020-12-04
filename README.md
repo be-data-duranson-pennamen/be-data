@@ -7,7 +7,7 @@ Pour ce faire, nous avons créé une application web de type client-serveur dont
 
 # Cahier des charges
 
-
+cf fichier excel cahier_des_charges_fonctionnel.xlsx
 
 # Installation en local
 
@@ -20,13 +20,14 @@ Git - https://git-scm.com/downloads
 1. Clonez ce repertoire git sur votre ordinateur dans un invite de commande à l'endroit désiré.
  ```git clone https://github.com/be-data-duranson-pennamen/be-data```
 Vous devez avoir 2 dossier : front et back. Comme leur noms l'indique, il s'agit du back-end et du front-end.
-2. Assurez vous que npm est installé sur votre machine (essayer "npm something.js" dans un terminal et regardez si l'erreur est "command not found" ou "no such file or directory")
-3. Lancer le serveur back-end : ouvrir un terminal dans le dossier /back et executez la commande suivante :
+2. Placez le fichier .env dans à la racine du dossier **back** (`/be-data/back/.env`). Le '.' signifie que c'est un fichier caché, vous ne le verrez donc pas dans votre répertoire. Vous pouvez vérifier s'il est au bon endroit avec la commande terminal `ls` ou en utilisant un IDE comme Visual Studio Code (qui vous permettra également de voir son contenu si besoin). Si vous n'avez pas ce fichier, ou si vous n'arrivez pas à le déplacer, contactez les éditeurs.
+3. Assurez vous que npm est installé sur votre machine (essayer "npm something.js" dans un terminal et regardez si l'erreur est "command not found" ou "no such file or directory")
+4. Lancer le serveur back-end : ouvrir un terminal dans le dossier /back et executez la commande suivante :
 ```npm i```
 Cette commande va installer tous les packages utiles à l'execution de notre code back-end, cela peut prendre quelques secondes. Une fois fait, executez :
 ```npm start```
 Nous avons créé un raccourci pour que npm start aille directement pointer sur le fichier de départ du serveur. Vous devez maintenant voir le message ```API listening on port 3000```, le serveur back-end est lancé en local et tourne sur votre port 3000, parfait !
-4. Lancez le front-end : ouvrez une nouvelle fenetre de terminal et allez dans le dossier /front. Executez ```npm i``` puis executez :
+5. Lancez le front-end : ouvrez une nouvelle fenetre de terminal et allez dans le dossier /front. Executez ```npm i``` puis executez :
 ```npm run serve```
 ou
 ```./node_modules/.bin/vue-cli-service serve```
@@ -35,7 +36,7 @@ La deuxième commande va compiler le code Vue et peut donc prendre un peu de tem
 `App running at:
   Local:   http://localhost:8080/ 
   Network: http://xxx.xxx.xxx.xxx:8080/ `
-5 Ouvrez **Chrome**, tapez dans la barre de recherche le lien Local (ou Network, c'est pareil car c'est votre adresse IP qui va apparaitre). Vous voilà sur notre site web !
+6. Ouvrez **Chrome**, tapez dans la barre de recherche le lien Local (ou Network, c'est pareil car c'est votre adresse IP qui va apparaitre). Vous voilà sur notre site web !
 
 # Utilisation du site Web
 
