@@ -71,7 +71,6 @@ export default {
         },
       ],
     };
-    console.log(counts);
     this.renderChart(data, options);
   },
 };

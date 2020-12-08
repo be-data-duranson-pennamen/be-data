@@ -55,7 +55,6 @@ export default {
             address: this.address,
           }
         );
-        console.log(newPassenger)
         if(!newPassenger.data.alreadyExists) {
           await axios.post(`${process.env.VUE_APP_API_URL}/ticket/create`, {
             passengerId: newPassenger.data.id,

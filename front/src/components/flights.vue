@@ -142,7 +142,6 @@ export default {
       else return number;
     },
     async deleteFlight(id) {
-      console.log(id);
       await axios.post(`${process.env.VUE_APP_API_URL}/delete/flight`, { id });
       this.getFlights();
     },
